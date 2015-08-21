@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using GalaSoft.MvvmLight;
-using Microsoft.Practices.ServiceLocation;
+using MoneyManager.Business.DataAccess;
 using MoneyManager.Business.Helper;
 using MoneyManager.Foundation;
 using MoneyManager.Foundation.Model;
 using MoneyManager.Foundation.OperationContracts;
 using PropertyChanged;
-using SettingDataAccess = MoneyManager.Business.DataAccess.SettingDataAccess;
 
 namespace MoneyManager.Business.ViewModels
 {
@@ -20,6 +18,17 @@ namespace MoneyManager.Business.ViewModels
         public bool IsTransactionView { private get; set; }
         public string CurrencyCulture => settings.DefaultCurrency;
 
+        private readonly ITransactionRepository transactionRepository;
+        private readonly IRepository<Account> accountRepository;
+        private readonly SettingDataAccess settings;
+
+        public BalanceViewModel(ITransactionRepository transactionRepository, IRepository<Account> accountRepository, SettingDataAccess settings)
+        {
+            this.transactionRepository = transactionRepository;
+            this.accountRepository = accountRepository;
+            this.settings = settings;
+        }
+
         public void UpdateBalance()
         {
             TotalBalance = GetTotalBalance();
@@ -30,10 +39,10 @@ namespace MoneyManager.Business.ViewModels
         {
             if (IsTransactionView)
             {
-                return selectedAccount.CurrentBalance;
+                return accountRepository.Selected.CurrentBalance;
             }
 
-            return AllAccounts?.Sum(x => x.CurrentBalance) ?? 0;
+            return accountRepository.Data?.Sum(x => x.CurrentBalance) ?? 0;
         }
 
         private double GetEndOfMonthValue()
@@ -64,7 +73,7 @@ namespace MoneyManager.Business.ViewModels
 
         private double HandleTransferAmount(FinancialTransaction transaction, double balance)
         {
-            if (selectedAccount == transaction.ChargedAccount)
+            if (accountRepository.Selected == transaction.ChargedAccount)
             {
                 balance -= transaction.Amount;
             }
@@ -78,26 +87,12 @@ namespace MoneyManager.Business.ViewModels
         private IEnumerable<FinancialTransaction> LoadUnclreadTransactions()
         {
             var unclearedTransactions =
-                TransactionRepository.GetUnclearedTransactions(Utilities.GetEndOfMonth());
+                transactionRepository.GetUnclearedTransactions(Utilities.GetEndOfMonth());
 
             return IsTransactionView
                 ? unclearedTransactions.Where(
-                    x => x.ChargedAccountId == selectedAccount.Id || x.TargetAccountId == selectedAccount.Id).ToList()
+                    x => x.ChargedAccountId == accountRepository.Selected.Id || x.TargetAccountId == accountRepository.Selected.Id).ToList()
                 : unclearedTransactions;
         }
-
-        #region Properties
-
-        private ObservableCollection<Account> AllAccounts
-            => ServiceLocator.Current.GetInstance<IRepository<Account>>().Data;
-
-        private Account selectedAccount => ServiceLocator.Current.GetInstance<IRepository<Account>>().Selected;
-
-        private ITransactionRepository TransactionRepository
-            => ServiceLocator.Current.GetInstance<ITransactionRepository>();
-
-        private SettingDataAccess settings => ServiceLocator.Current.GetInstance<SettingDataAccess>();
-
-        #endregion Properties
     }
 }

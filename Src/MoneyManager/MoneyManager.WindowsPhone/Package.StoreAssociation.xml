@@ -184,30 +184,29 @@
     <Language Code="vi-vn" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>38045npadrutt.MoneyFoxBeta</MainPackageIdentityName>
+    <MainPackageIdentityName>38045npadrutt.MoneyFox</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>Money Fox Beta</ReservedName>
+      <ReservedName>Money Fox</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
     <MainPackageIdentityName>38045npadrutt.FavoritePlaces</MainPackageIdentityName>
-    <MainPackageIdentityName>38045npadrutt.MoneyFox</MainPackageIdentityName>
-    <MainPackageIdentityName>38045npadrutt.MoneyManager</MainPackageIdentityName>
+    <MainPackageIdentityName>38045npadrutt.MoneyFoxBeta</MainPackageIdentityName>
     <MainPackageIdentityName>38045npadrutt.MyMedi</MainPackageIdentityName>
     <MainPackageIdentityName>38045npadrutt.MyMediBeta</MainPackageIdentityName>
     <MainPackageIdentityName>38045npadrutt.SleepTracker</MainPackageIdentityName>
     <MainPackageIdentityName>38045npadrutt.SleepTrackerBeta</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9WZDNCRDKD4K">
+  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH0C82H">
     <PackageInfo>
       <OsMinVersion>6.3.1.0</OsMinVersion>
       <PackageArchitecture>Arm</PackageArchitecture>
-      <PackageMaxArchitectureVersion>2015.722.1045.0</PackageMaxArchitectureVersion>
+      <PackageMaxArchitectureVersion>2015.731.1556.38</PackageMaxArchitectureVersion>
     </PackageInfo>
     <PackageInfo>
       <OsMinVersion>6.3.1.0</OsMinVersion>
       <PackageArchitecture>Neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>2015.722.1045.0</PackageMaxArchitectureVersion>
+      <PackageMaxArchitectureVersion>2015.731.1556.38</PackageMaxArchitectureVersion>
     </PackageInfo>
   </PackageInfoList>
 </StoreAssociation>

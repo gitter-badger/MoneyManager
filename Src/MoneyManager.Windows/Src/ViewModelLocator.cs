@@ -3,12 +3,12 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
 using MoneyManager.Business;
+using MoneyManager.Business.DataAccess;
 using MoneyManager.Business.Helper;
 using MoneyManager.Business.Manager;
 using MoneyManager.Business.Repositories;
 using MoneyManager.Business.Services;
 using MoneyManager.Business.ViewModels;
-using MoneyManager.DataAccess.DataAccess;
 using MoneyManager.Foundation.Model;
 using MoneyManager.Foundation.OperationContracts;
 using MoneyManager.Windows.Views;
@@ -19,11 +19,13 @@ namespace MoneyManager.Windows
     {
         static ViewModelLocator()
         {
-            DatabaseLogic.CreateDatabase();
+            
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             if (DesignMode.DesignModeEnabled) { return;}
+
+            SimpleIoc.Default.Register<IDbHelper, DbHelper>();
 
             //DataAccess
             SimpleIoc.Default.Register<IDataAccess<Account>, AccountDataAccess>();

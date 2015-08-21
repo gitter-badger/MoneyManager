@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MoneyManager.Business.Logic;
-using MoneyManager.DataAccess.DataAccess;
 using PropertyChanged;
+using SettingDataAccess = MoneyManager.Business.DataAccess.SettingDataAccess;
 
 namespace MoneyManager.Business.ViewModels
 {

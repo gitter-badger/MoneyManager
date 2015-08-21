@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using MoneyManager.Business.Logic.Tile;
-using MoneyManager.DataAccess.DataAccess;
 using PropertyChanged;
+using SettingDataAccess = MoneyManager.Business.DataAccess.SettingDataAccess;
 
 namespace MoneyManager.Business.ViewModels
 {
@@ -11,7 +11,7 @@ namespace MoneyManager.Business.ViewModels
     [ImplementPropertyChanged]
     public class TileSettingsViewModel : ViewModelBase
     {
-        private readonly SettingDataAccess _settingDataAccess;
+        private readonly SettingDataAccess settingDataAccess;
 
         /// <summary>
         ///     Creates a TileSettingsViewModel object
@@ -19,7 +19,7 @@ namespace MoneyManager.Business.ViewModels
         /// <param name="settingDataAccess">Instance of settingDataAccess</param>
         public TileSettingsViewModel(SettingDataAccess settingDataAccess)
         {
-            _settingDataAccess = settingDataAccess;
+            this.settingDataAccess = settingDataAccess;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace MoneyManager.Business.ViewModels
         /// </summary>
         public bool ShowInfoOnMainTile
         {
-            get { return _settingDataAccess.ShowCashFlowOnMainTile; }
+            get { return settingDataAccess.ShowCashFlowOnMainTile; }
             set { SetValue(value); }
         }
 
@@ -48,7 +48,7 @@ namespace MoneyManager.Business.ViewModels
 
         private void SetValue(bool value)
         {
-            _settingDataAccess.ShowCashFlowOnMainTile = value;
+            settingDataAccess.ShowCashFlowOnMainTile = value;
         }
     }
 }

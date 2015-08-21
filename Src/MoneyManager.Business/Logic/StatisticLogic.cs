@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.Practices.ServiceLocation;
-using MoneyManager.DataAccess.DataAccess;
 using MoneyManager.Foundation;
 using MoneyManager.Foundation.Model;
 using MoneyManager.Foundation.OperationContracts;
+using SettingDataAccess = MoneyManager.Business.DataAccess.SettingDataAccess;
 
 namespace MoneyManager.Business.Logic
 {

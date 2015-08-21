@@ -4,11 +4,11 @@ using System.Linq;
 using GalaSoft.MvvmLight;
 using Microsoft.Practices.ServiceLocation;
 using MoneyManager.Business.Helper;
-using MoneyManager.DataAccess.DataAccess;
 using MoneyManager.Foundation;
 using MoneyManager.Foundation.Model;
 using MoneyManager.Foundation.OperationContracts;
 using PropertyChanged;
+using SettingDataAccess = MoneyManager.Business.DataAccess.SettingDataAccess;
 
 namespace MoneyManager.Business.ViewModels
 {

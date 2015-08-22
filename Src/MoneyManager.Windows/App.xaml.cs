@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Globalization;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.ApplicationInsights;
@@ -15,7 +13,7 @@ namespace MoneyManager.Windows
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    sealed partial class App
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -44,11 +42,7 @@ namespace MoneyManager.Windows
             if (shell == null)
             {
                 // Create a AppShell to act as the navigation context and navigate to the first page
-                shell = new AppShell();
-
-                // Set the default language
-                shell.Language = ApplicationLanguages.Languages[0];
-
+                shell = new AppShell {Language = ApplicationLanguages.Languages[0]};
                 shell.AppFrame.NavigationFailed += OnNavigationFailed;
             }
 

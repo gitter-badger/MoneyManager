@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GalaSoft.MvvmLight;
 using MoneyManager.Business.DataAccess;
 using MoneyManager.Business.Helper;
 using MoneyManager.Foundation;
@@ -11,7 +10,7 @@ using PropertyChanged;
 namespace MoneyManager.Business.ViewModels
 {
     [ImplementPropertyChanged]
-    public class BalanceViewModel : ViewModelBase
+    public class BalanceViewModel : BaseViewModel
     {
         public double TotalBalance { get; set; }
         public double EndOfMonthBalance { get; set; }

@@ -1,31 +1,28 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Views;
+﻿using Cirrious.MvvmCross.ViewModels;
 using MoneyManager.Business.Manager;
 
 namespace MoneyManager.Business.ViewModels
 {
-    public class MainViewModel: ViewModelBase
+    public class MainViewModel: BaseViewModel
     {
         private readonly TransactionManager transactionManager;
-        private readonly INavigationService navigationService;
+        //private readonly INavigationService navigationService;
 
-        public RelayCommand<string> GoToAddTransactionCommand { get; private set; }
-        public RelayCommand GoToAddAccountCommand { get; private set; }
+        public MvxCommand<string> GoToAddTransactionCommand { get; private set; }
+        public MvxCommand GoToAddAccountCommand { get; private set; }
         
-        public MainViewModel(TransactionManager transactionManager, INavigationService navigationService)
+        public MainViewModel(TransactionManager transactionManager)
         {
-            this.navigationService = navigationService;
             this.transactionManager = transactionManager;
 
-            GoToAddTransactionCommand = new RelayCommand<string>(GoToAddTransaction);
-            GoToAddAccountCommand = new RelayCommand(() => navigationService.NavigateTo("AddAccountView"));
+            GoToAddTransactionCommand = new MvxCommand<string>(GoToAddTransaction);
+            //GoToAddAccountCommand = new MvxCommand(() => navigationService.NavigateTo("AddAccountView"));
         }
 
         private void GoToAddTransaction(string type)
         {
             transactionManager.PrepareCreation(type);
-            navigationService.NavigateTo("AddTransactionView");
+            //navigationService.NavigateTo("AddTransactionView");
         }
     }
 }

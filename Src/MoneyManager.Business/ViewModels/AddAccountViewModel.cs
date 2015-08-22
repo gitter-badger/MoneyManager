@@ -1,6 +1,5 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using GalaSoft.MvvmLight;
 using MoneyManager.Foundation.Model;
 using MoneyManager.Foundation.OperationContracts;
 using PropertyChanged;
@@ -8,7 +7,7 @@ using PropertyChanged;
 namespace MoneyManager.Business.ViewModels
 {
     [ImplementPropertyChanged]
-    public class AddAccountViewModel : ViewModelBase
+    public class AddAccountViewModel : BaseViewModel
     {
         private readonly IRepository<Account> accountRepository;
 

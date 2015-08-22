@@ -3,33 +3,28 @@ using System.Collections.ObjectModel;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Views;
+using MoneyManager.Business.DataAccess;
 using MoneyManager.Business.Logic;
 using MoneyManager.Foundation;
 using MoneyManager.Foundation.Model;
 using MoneyManager.Foundation.OperationContracts;
 using PropertyChanged;
-using SettingDataAccess = MoneyManager.Business.DataAccess.SettingDataAccess;
 
 namespace MoneyManager.Business.ViewModels
 {
     [ImplementPropertyChanged]
-    public class AddTransactionViewModel : ViewModelBase
+    public class AddTransactionViewModel : BaseViewModel
     {
         private readonly IRepository<Account> accountRepository;
         private readonly SettingDataAccess settings;
         private readonly ITransactionRepository transactionRepository;
-        private readonly INavigationService navigationService;
 
         public AddTransactionViewModel(ITransactionRepository transactionRepository,
             IRepository<Account> accountRepository,
-            SettingDataAccess settings,
-            INavigationService navigationService)
+            SettingDataAccess settings)
         {
             this.transactionRepository = transactionRepository;
             this.settings = settings;
-            this.navigationService = navigationService;
             this.accountRepository = accountRepository;
 
             IsNavigationBlocked = true;
@@ -117,7 +112,7 @@ namespace MoneyManager.Business.ViewModels
             {
                 await AccountLogic.AddTransactionAmount(transactionRepository.Selected);
             }
-            navigationService.GoBack();
+            Close(this);
         }
     }
 }

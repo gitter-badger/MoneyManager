@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.UI.StartScreen;
-using Microsoft.Practices.ServiceLocation;
+using Cirrious.CrossCore;
 using MoneyManager.Foundation.OperationContracts;
 
 namespace MoneyManager.Business.Logic.Tile
@@ -24,11 +24,12 @@ namespace MoneyManager.Business.Logic.Tile
             await secondTile.RequestDeleteAsync();
         }
 
+        //TODO: make non static
         public static void UpdateMainTile()
         {
             var cashFlow = StatisticLogic.GetMonthlyCashFlow();
 
-            ServiceLocator.Current.GetInstance<IUserNotification>()
+            Mvx.Resolve<IUserNotification>()
                 .UpdateMainTile(cashFlow[0].Label, cashFlow[1].Label, cashFlow[2].Label);
         }
     }

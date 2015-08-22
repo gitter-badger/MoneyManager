@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Views;
+using Cirrious.MvvmCross.ViewModels;
 using MoneyManager.Business.Manager;
 using MoneyManager.Foundation.Model;
 using MoneyManager.Foundation.OperationContracts;
@@ -12,24 +9,22 @@ using PropertyChanged;
 namespace MoneyManager.Business.ViewModels
 {
     [ImplementPropertyChanged]
-    public class TransactionListViewModel : ViewModelBase
+    public class TransactionListViewModel : BaseViewModel
     {
         private readonly ITransactionRepository transactionRepository;
         private readonly IRepository<Account> accountRepository;
         private readonly TransactionManager transactionManager;
-        private readonly INavigationService navigationService;
 
-        public TransactionListViewModel(ITransactionRepository transactionRepository, IRepository<Account> accountRepository, TransactionManager transactionManager, INavigationService navigationService)
+        public TransactionListViewModel(ITransactionRepository transactionRepository, IRepository<Account> accountRepository, TransactionManager transactionManager)
         {
             this.transactionRepository = transactionRepository;
             this.accountRepository = accountRepository;
             this.transactionManager = transactionManager;
-            this.navigationService = navigationService;
 
-            GoToAddTransactionCommand = new RelayCommand<string>(GoToAddTransaction);
+            GoToAddTransactionCommand = new MvxCommand<string>(GoToAddTransaction);
         }
 
-        public RelayCommand<string> GoToAddTransactionCommand { get; private set; }
+        public MvxCommand<string> GoToAddTransactionCommand { get; private set; }
         
         /// <summary>
         ///     Returns all Transaction who are assigned to this repository
@@ -52,7 +47,7 @@ namespace MoneyManager.Business.ViewModels
         private void GoToAddTransaction(string type)
         {
             transactionManager.PrepareCreation(type);
-            navigationService.NavigateTo("AddTransactionView");
+            ShowViewModel<AddTransactionViewModel>();
         }
     }
 }

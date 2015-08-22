@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
-using Microsoft.Practices.ServiceLocation;
+using Cirrious.CrossCore;
+using MoneyManager.Business.DataAccess;
 using MoneyManager.Business.Helper;
 using MoneyManager.Business.ViewModels;
 using MoneyManager.Foundation;
 using MoneyManager.Foundation.Model;
 using MoneyManager.Foundation.OperationContracts;
-using SettingDataAccess = MoneyManager.Business.DataAccess.SettingDataAccess;
 
 namespace MoneyManager.Business.Logic
 {
@@ -30,7 +30,7 @@ namespace MoneyManager.Business.Logic
 
             if (refreshRelatedList)
             {
-                ServiceLocator.Current.GetInstance<TransactionListViewModel>()
+                Mvx.Resolve<TransactionListViewModel>()
                     .SetRelatedTransactions(AccountRepository.Selected);
             }
             await AccountLogic.AddTransactionAmount(transaction);
@@ -39,7 +39,7 @@ namespace MoneyManager.Business.Logic
         //TODO: Move to VM / Refactor this
         public static void GoToAddTransaction(TransactionType transactionType, bool refreshRelatedList = false)
         {
-            ServiceLocator.Current.GetInstance<CategoryListViewModel>().IsSettingCall = false;
+            Mvx.Resolve<CategoryListViewModel>().IsSettingCall = false;
             AddTransactionView.IsEdit = false;
             AddTransactionView.IsEndless = true;
             AddTransactionView.RefreshRealtedList = refreshRelatedList;
@@ -50,7 +50,7 @@ namespace MoneyManager.Business.Logic
 
         public static void PrepareEdit(FinancialTransaction transaction)
         {
-            ServiceLocator.Current.GetInstance<CategoryListViewModel>().IsSettingCall = false;
+            Mvx.Resolve<CategoryListViewModel>().IsSettingCall = false;
             AddTransactionView.IsEdit = true;
             AddTransactionView.IsTransfer = transaction.Type == (int) TransactionType.Transfer;
             if (transaction.ReccuringTransactionId.HasValue && transaction.RecurringTransaction != null)
@@ -76,7 +76,7 @@ namespace MoneyManager.Business.Logic
 
                 await AccountLogic.RemoveTransactionAmount(transaction);
                 AccountLogic.RefreshRelatedTransactions();
-                ServiceLocator.Current.GetInstance<BalanceViewModel>().UpdateBalance();
+                Mvx.Resolve<BalanceViewModel>().UpdateBalance();
             }
         }
 
@@ -151,7 +151,7 @@ namespace MoneyManager.Business.Logic
             {
                 Type = (int) transactionType,
                 IsExchangeModeActive = false,
-                Currency = ServiceLocator.Current.GetInstance<SettingDataAccess>().DefaultCurrency
+                Currency = Mvx.Resolve<SettingDataAccess>().DefaultCurrency
             };
         }
 
@@ -198,26 +198,26 @@ namespace MoneyManager.Business.Logic
         }
 
         #region Properties
-
+        //TODO: refactor this to non static
         private static IRepository<Account> AccountRepository
-            => ServiceLocator.Current.GetInstance<IRepository<Account>>();
+            => Mvx.Resolve<IRepository<Account>>();
 
         private static ITransactionRepository TransactionRepository
-            => ServiceLocator.Current.GetInstance<ITransactionRepository>();
+            => Mvx.Resolve<ITransactionRepository>();
 
         private static FinancialTransaction SelectedTransaction
         {
-            get { return ServiceLocator.Current.GetInstance<ITransactionRepository>().Selected; }
-            set { ServiceLocator.Current.GetInstance<ITransactionRepository>().Selected = value; }
+            get { return Mvx.Resolve<ITransactionRepository>().Selected; }
+            set { Mvx.Resolve<ITransactionRepository>().Selected = value; }
         }
 
         private static IRepository<RecurringTransaction> RecurringTransactionRepository
-            => ServiceLocator.Current.GetInstance<IRepository<RecurringTransaction>>();
+            => Mvx.Resolve<IRepository<RecurringTransaction>>();
 
         private static AddTransactionViewModel AddTransactionView
-            => ServiceLocator.Current.GetInstance<AddTransactionViewModel>();
+            => Mvx.Resolve<AddTransactionViewModel>();
 
-        private static SettingDataAccess Settings => ServiceLocator.Current.GetInstance<SettingDataAccess>();
+        private static SettingDataAccess Settings => Mvx.Resolve<SettingDataAccess>();
 
         #endregion Properties
     }

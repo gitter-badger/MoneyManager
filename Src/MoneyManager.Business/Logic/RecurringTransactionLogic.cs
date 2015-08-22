@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.ServiceLocation;
+using Cirrious.CrossCore;
 using MoneyManager.Business.ViewModels;
 using MoneyManager.Foundation;
 using MoneyManager.Foundation.Model;
@@ -16,13 +16,13 @@ namespace MoneyManager.Business.Logic
             try
             {
                 var relatedTrans =
-                    transactionRepository.Data.Where(x => x.IsRecurring && x.ReccuringTransactionId == recTrans.Id);
+                    TransactionRepository.Data.Where(x => x.IsRecurring && x.ReccuringTransactionId == recTrans.Id);
 
                 foreach (var transaction in relatedTrans)
                 {
                     transaction.IsRecurring = false;
                     transaction.ReccuringTransactionId = null;
-                    transactionRepository.Save(transaction);
+                    TransactionRepository.Save(transaction);
                 }
             }
             catch (Exception ex)
@@ -34,7 +34,7 @@ namespace MoneyManager.Business.Logic
         public static void CheckRecurringTransactions()
         {
             RecurringTransactionData.LoadList();
-            var transactionList = transactionRepository.LoadRecurringList();
+            var transactionList = TransactionRepository.LoadRecurringList();
 
             foreach (var recTrans in AllRecurringTransactions.Where(x => x.ChargedAccount != null))
             {
@@ -108,7 +108,7 @@ namespace MoneyManager.Business.Logic
                     Note = recurringTransaction.Note
                 };
 
-                transactionRepository.Save(newTransaction);
+                TransactionRepository.Save(newTransaction);
             }
             catch (Exception ex)
             {
@@ -129,39 +129,27 @@ namespace MoneyManager.Business.Logic
                 ChargedAccount = transaction.ChargedAccount,
                 TargetAccount = transaction.TargetAccount,
                 StartDate = transaction.Date,
-                EndDate = addTransactionView.EndDate,
-                IsEndless = addTransactionView.IsEndless,
+                EndDate = AddTransactionView.EndDate,
+                IsEndless = AddTransactionView.IsEndless,
                 Amount = transaction.Amount,
                 AmountWithoutExchange = transaction.AmountWithoutExchange,
                 Currency = transaction.Currency,
                 CategoryId = transaction.CategoryId,
                 Type = transaction.Type,
-                Recurrence = addTransactionView.Recurrence,
+                Recurrence = AddTransactionView.Recurrence,
                 Note = transaction.Note
             };
         }
 
         #region Properties
 
-        private static IDataAccess<RecurringTransaction> RecurringTransactionData
-        {
-            get { return ServiceLocator.Current.GetInstance<IDataAccess<RecurringTransaction>>(); }
-        }
+        private static IDataAccess<RecurringTransaction> RecurringTransactionData => Mvx.Resolve<IDataAccess<RecurringTransaction>>();
 
-        private static ITransactionRepository transactionRepository
-        {
-            get { return ServiceLocator.Current.GetInstance<ITransactionRepository>(); }
-        }
+        private static ITransactionRepository TransactionRepository => Mvx.Resolve<ITransactionRepository>();
 
-        private static AddTransactionViewModel addTransactionView
-        {
-            get { return ServiceLocator.Current.GetInstance<AddTransactionViewModel>(); }
-        }
+        private static AddTransactionViewModel AddTransactionView => Mvx.Resolve<AddTransactionViewModel>();
 
-        private static IEnumerable<RecurringTransaction> AllRecurringTransactions
-        {
-            get { return ServiceLocator.Current.GetInstance<IRepository<RecurringTransaction>>().Data; }
-        }
+        private static IEnumerable<RecurringTransaction> AllRecurringTransactions => Mvx.Resolve<IRepository<RecurringTransaction>>().Data;
 
         #endregion Properties
     }

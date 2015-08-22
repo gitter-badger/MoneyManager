@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI.Popups;
-using GalaSoft.MvvmLight.Views;
 using MoneyManager.Foundation;
 using MoneyManager.Foundation.Model;
 
@@ -12,13 +11,6 @@ namespace MoneyManager.Business.Helper
 {
     public class Utilities
     {
-        private readonly INavigationService _navigationService;
-
-        public Utilities(INavigationService navigationService)
-        {
-            _navigationService = navigationService;
-        }
-
         /// <summary>
         ///     Get the version of the MoneyManager.WindowsPhone dll
         /// </summary>

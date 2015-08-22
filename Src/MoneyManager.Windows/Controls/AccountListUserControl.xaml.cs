@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
-using Microsoft.Practices.ServiceLocation;
+using Cirrious.CrossCore;
 using MoneyManager.Business.Helper;
 using MoneyManager.Business.ViewModels;
 using MoneyManager.Foundation.Model;
@@ -18,7 +18,7 @@ namespace MoneyManager.Windows.Controls
             InitializeComponent();
         }
 
-        private IRepository<Account> AccountRepository => ServiceLocator.Current.GetInstance<IRepository<Account>>();
+        private IRepository<Account> AccountRepository => Mvx.Resolve<IRepository<Account>>();
 
         private void AccountList_Holding(object sender, HoldingRoutedEventArgs e)
         {
@@ -37,7 +37,8 @@ namespace MoneyManager.Windows.Controls
                 return;
             }
 
-            var viewModel = ServiceLocator.Current.GetInstance<AddAccountViewModel>();
+            //TODO: Move to VM
+            var viewModel = Mvx.Resolve<AddAccountViewModel>();
             viewModel.IsEdit = true;
             viewModel.SelectedAccount = account;
 
@@ -58,8 +59,8 @@ namespace MoneyManager.Windows.Controls
                 return;
             }
 
-            ServiceLocator.Current.GetInstance<AccountListUserControlViewModel>().Delete(account);
-            ServiceLocator.Current.GetInstance<BalanceViewModel>().UpdateBalance();
+            Mvx.Resolve<AccountListUserControlViewModel>().Delete(account);
+            Mvx.Resolve<BalanceViewModel>().UpdateBalance();
         }
 
         private void NavigateToTransactionList(object sender, SelectionChangedEventArgs e)
@@ -68,7 +69,7 @@ namespace MoneyManager.Windows.Controls
             {
                 AccountRepository.Selected = AccountList.SelectedItem as Account;
 
-                ServiceLocator.Current.GetInstance<TransactionListViewModel>()
+                Mvx.Resolve<TransactionListViewModel>()
                     .SetRelatedTransactions(AccountRepository.Selected);
 
                 ((Frame) Window.Current.Content).Navigate(typeof (TransactionListView));

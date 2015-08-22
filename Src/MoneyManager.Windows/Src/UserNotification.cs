@@ -1,5 +1,4 @@
 ﻿using Windows.UI.Notifications;
-using Microsoft.Practices.ServiceLocation;
 using MoneyManager.Business.ViewModels;
 using MoneyManager.Foundation;
 using MoneyManager.Foundation.OperationContracts;
@@ -9,6 +8,13 @@ namespace MoneyManager.Windows
 {
     public class UserNotification : IUserNotification
     {
+        private readonly TileSettingsViewModel tileSettingsViewModel;
+
+        public UserNotification(TileSettingsViewModel tileSettingsViewModel)
+        {
+            this.tileSettingsViewModel = tileSettingsViewModel;
+        }
+
         /// <summary>
         ///     Sets the MainTile with new Information
         /// </summary>
@@ -19,7 +25,7 @@ namespace MoneyManager.Windows
         {
             TileUpdateManager.CreateTileUpdaterForApplication().Clear();
 
-            if (ServiceLocator.Current.GetInstance<TileSettingsViewModel>().ShowInfoOnMainTile)
+            if (tileSettingsViewModel.ShowInfoOnMainTile)
             {
                 var tileContent =
                     TileContentFactory.CreateTileSquare310x310SmallImagesAndTextList04();

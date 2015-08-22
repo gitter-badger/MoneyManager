@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
-using Microsoft.Practices.ServiceLocation;
+using Cirrious.CrossCore;
 using MoneyManager.Business.Logic;
 using MoneyManager.Business.ViewModels;
 using MoneyManager.Foundation.Model;
@@ -18,7 +18,7 @@ namespace MoneyManager.Windows.Controls
             InitializeComponent();
 
             //TODO: Handle in View Model
-            ServiceLocator.Current.GetInstance<BalanceViewModel>().IsTransactionView = true;
+            Mvx.Resolve<BalanceViewModel>().IsTransactionView = true;
         }
 
         private void EditTransaction(object sender, RoutedEventArgs e)
@@ -87,11 +87,11 @@ namespace MoneyManager.Windows.Controls
 
         #region Properties
 
-        public ITransactionRepository TransactionRepository => ServiceLocator.Current.GetInstance<ITransactionRepository>();
+        public ITransactionRepository TransactionRepository => Mvx.Resolve<ITransactionRepository>();
 
-        public AddTransactionViewModel AddTransactionView => ServiceLocator.Current.GetInstance<AddTransactionViewModel>();
+        public AddTransactionViewModel AddTransactionView => Mvx.Resolve<AddTransactionViewModel>();
 
-        public BalanceViewModel BalanceView => ServiceLocator.Current.GetInstance<BalanceViewModel>();
+        public BalanceViewModel BalanceView => Mvx.Resolve<BalanceViewModel>();
 
         #endregion
     }

@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-using MoneyManager.Business.Logic.Tile;
+﻿using MoneyManager.Business.Logic.Tile;
 using PropertyChanged;
 using SettingDataAccess = MoneyManager.Business.DataAccess.SettingDataAccess;
 
@@ -9,7 +8,7 @@ namespace MoneyManager.Business.ViewModels
     ///     Provides the information for the TileSettingsView
     /// </summary>
     [ImplementPropertyChanged]
-    public class TileSettingsViewModel : ViewModelBase
+    public class TileSettingsViewModel : BaseViewModel
     {
         private readonly SettingDataAccess settingDataAccess;
 

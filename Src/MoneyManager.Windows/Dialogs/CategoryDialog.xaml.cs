@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using Microsoft.Practices.ServiceLocation;
+using Cirrious.CrossCore;
 using MoneyManager.Business.ViewModels;
 using MoneyManager.Foundation;
 using MoneyManager.Foundation.Model;
@@ -27,9 +27,9 @@ namespace MoneyManager.Windows.Dialogs
             }
         }
 
-        private IRepository<Category> CategoryRepository => ServiceLocator.Current.GetInstance<IRepository<Category>>();
+        private IRepository<Category> CategoryRepository => Mvx.Resolve<IRepository<Category>>();
 
-        private CategoryListViewModel CategoryListView => ServiceLocator.Current.GetInstance<CategoryListViewModel>();
+        private CategoryListViewModel CategoryListView => Mvx.Resolve<CategoryListViewModel>();
 
         public bool IsEdit { get; set; }
 

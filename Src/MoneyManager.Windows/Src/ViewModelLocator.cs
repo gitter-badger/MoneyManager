@@ -1,126 +1,32 @@
-using Windows.ApplicationModel;
-using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Views;
-using Microsoft.Practices.ServiceLocation;
-using MoneyManager.Business;
-using MoneyManager.Business.DataAccess;
-using MoneyManager.Business.Helper;
-using MoneyManager.Business.Manager;
-using MoneyManager.Business.Repositories;
-using MoneyManager.Business.Services;
+﻿using Cirrious.CrossCore;
 using MoneyManager.Business.ViewModels;
-using MoneyManager.Foundation.Model;
-using MoneyManager.Foundation.OperationContracts;
-using MoneyManager.Windows.Views;
 
 namespace MoneyManager.Windows
 {
     public class ViewModelLocator
     {
-        static ViewModelLocator()
-        {
-            
+        public MainViewModel MainViewModel => Mvx.Resolve<MainViewModel>();
 
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+        public AddAccountViewModel AddAccountViewModel => Mvx.Resolve<AddAccountViewModel>();
 
-            if (DesignMode.DesignModeEnabled) { return;}
+        public AccountListUserControlViewModel AccountListUserControlViewModel => Mvx.Resolve<AccountListUserControlViewModel>();
 
-            SimpleIoc.Default.Register<IDbHelper, DbHelper>();
+        public AddTransactionViewModel AddTransactionViewModel => Mvx.Resolve<AddTransactionViewModel>();
 
-            //DataAccess
-            SimpleIoc.Default.Register<IDataAccess<Account>, AccountDataAccess>();
-            SimpleIoc.Default.Register<IDataAccess<Category>, CategoryDataAccess>();
-            SimpleIoc.Default.Register<IDataAccess<FinancialTransaction>, TransactionDataAccess>();
-            SimpleIoc.Default.Register<IDataAccess<RecurringTransaction>, RecurringTransactionDataAccess>();
-            SimpleIoc.Default.Register<SettingDataAccess>();
+        public BalanceViewModel BalanceViewModel => Mvx.Resolve<BalanceViewModel>();
 
-            //Logic
-            SimpleIoc.Default.Register<IUserNotification, UserNotification>();
-            SimpleIoc.Default.Register<IBackupService, OneDriveBackupService>();
-            SimpleIoc.Default.Register(CreateNavigationService);
-            SimpleIoc.Default.Register<Utilities>();
-            SimpleIoc.Default.Register<Backup>();
+        public CategoryListViewModel CategoryListViewModel => Mvx.Resolve<CategoryListViewModel>();
 
-            //Repositories
-            SimpleIoc.Default.Register<ITransactionRepository, TransactionRepository>();
-            SimpleIoc.Default.Register<IRepository<RecurringTransaction>, RecurringTransactionRepository>();
-            SimpleIoc.Default.Register<IRepository<Account>, AccountRepository>();
-            SimpleIoc.Default.Register<IRepository<Category>, CategoryRepository>();
+        public TransactionListViewModel TransactionListViewModel => Mvx.Resolve<TransactionListViewModel>();
 
-            //Datadependent Logic
-            SimpleIoc.Default.Register<RepositoryManager>();
+        public TileSettingsViewModel TileSettingsViewModel => Mvx.Resolve<TileSettingsViewModel>();
 
-            //ViewModels
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<AddAccountViewModel>();
-            SimpleIoc.Default.Register<AccountListUserControlViewModel>();
-            SimpleIoc.Default.Register<AddTransactionViewModel>();
-            SimpleIoc.Default.Register<BalanceViewModel>();
-            SimpleIoc.Default.Register<CategoryListViewModel>();
-            SimpleIoc.Default.Register<TransactionListViewModel>();
-            SimpleIoc.Default.Register<TileSettingsViewModel>();
-            SimpleIoc.Default.Register<GeneralSettingViewModel>();
-            SimpleIoc.Default.Register<SettingDefaultsViewModel>();
-            SimpleIoc.Default.Register<StatisticViewModel>();
-            SimpleIoc.Default.Register<BackupViewModel>();
-        }
+        public GeneralSettingViewModel GeneralSettingViewModel => Mvx.Resolve<GeneralSettingViewModel>();
 
-        #region Logic
+        public SettingDefaultsViewModel SettingDefaultsViewModel => Mvx.Resolve<SettingDefaultsViewModel>();
 
-        private static INavigationService CreateNavigationService()
-        {
-            var navigationService = new PageNavigationService();
+        public StatisticViewModel StatisticViewModel => Mvx.Resolve<StatisticViewModel>();
 
-            navigationService.Configure("AddAccountView", typeof(AddAccountView));
-            navigationService.Configure("AddTransactionView", typeof(AddTransactionView));
-
-            return navigationService;
-        }
-
-        #endregion
-
-        #region DataAccess
-
-        public IRepository<Account> AccountRepository => ServiceLocator.Current.GetInstance<IRepository<Account>>();
-
-        public IRepository<Category> CategoryRepository => ServiceLocator.Current.GetInstance<IRepository<Category>>();
-
-        public ITransactionRepository TransactionRepository
-            => ServiceLocator.Current.GetInstance<ITransactionRepository>();
-
-        public IRepository<RecurringTransaction> RecurringTransactionRepository
-            => ServiceLocator.Current.GetInstance<IRepository<RecurringTransaction>>();
-
-        public SettingDataAccess SettingDataAccess => ServiceLocator.Current.GetInstance<SettingDataAccess>();
-
-        #endregion DataAccess
-
-        #region Views
-
-        public MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>();
-
-        public AddAccountViewModel AddAccountViewModel => ServiceLocator.Current.GetInstance<AddAccountViewModel>();
-
-        public AccountListUserControlViewModel AccountListUserControlViewModel => ServiceLocator.Current.GetInstance<AccountListUserControlViewModel>();
-
-        public AddTransactionViewModel AddTransactionViewModel => ServiceLocator.Current.GetInstance<AddTransactionViewModel>();
-
-        public BalanceViewModel BalanceViewModel => ServiceLocator.Current.GetInstance<BalanceViewModel>();
-
-        public CategoryListViewModel CategoryListViewModel => ServiceLocator.Current.GetInstance<CategoryListViewModel>();
-
-        public TransactionListViewModel TransactionListViewModel => ServiceLocator.Current.GetInstance<TransactionListViewModel>();
-
-        public TileSettingsViewModel TileSettingsViewModel => ServiceLocator.Current.GetInstance<TileSettingsViewModel>();
-
-        public GeneralSettingViewModel GeneralSettingViewModel => ServiceLocator.Current.GetInstance<GeneralSettingViewModel>();
-
-        public SettingDefaultsViewModel SettingDefaultsViewModel => ServiceLocator.Current.GetInstance<SettingDefaultsViewModel>();
-
-        public StatisticViewModel StatisticViewModel => ServiceLocator.Current.GetInstance<StatisticViewModel>();
-
-        public BackupViewModel BackupViewModel => ServiceLocator.Current.GetInstance<BackupViewModel>();
-
-        #endregion Views
+        public BackupViewModel BackupViewModel => Mvx.Resolve<BackupViewModel>();
     }
 }

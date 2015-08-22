@@ -6,7 +6,7 @@ using SettingDataAccess = MoneyManager.Business.DataAccess.SettingDataAccess;
 namespace MoneyManager.Business.ViewModels
 {
     [ImplementPropertyChanged]
-    public class GeneralSettingViewModel
+    public class GeneralSettingViewModel : BaseViewModel
     {
         private readonly SettingDataAccess settingsDataAccess;
 

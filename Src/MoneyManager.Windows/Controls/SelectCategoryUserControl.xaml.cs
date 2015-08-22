@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Microsoft.Practices.ServiceLocation;
+using Cirrious.CrossCore;
 using MoneyManager.Foundation.OperationContracts;
 using MoneyManager.Windows.Views;
 
@@ -17,7 +17,7 @@ namespace MoneyManager.Windows.Controls
         //TODO: Handle in View Model
         private void ResetCategory(object sender, TappedRoutedEventArgs e)
         {
-            ServiceLocator.Current.GetInstance<ITransactionRepository>().Selected.Category = null;
+            Mvx.Resolve<ITransactionRepository>().Selected.Category = null;
         }
 
         //TODO: Handle in View Model

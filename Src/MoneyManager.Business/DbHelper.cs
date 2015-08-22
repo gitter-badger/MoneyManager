@@ -27,7 +27,7 @@ namespace MoneyManager.Business
         public SQLiteConnection GetSqlConnection()
         {
             return new SQLiteConnection(new SQLitePlatformWinRT(), DbPath);
-            //return new SQLiteConnection(ServiceLocator.Current.GetInstance<ISQLitePlatform>(), ServiceLocator.Current.GetInstance<IDatabasePath>().DbPath);
+            //return new SQLiteConnection(Mvx.Resolve<ISQLitePlatform>(), Mvx.Resolve<IDatabasePath>().DbPath);
         }
 
         /// <summary>

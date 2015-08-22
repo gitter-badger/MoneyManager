@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Practices.ServiceLocation;
+using Cirrious.CrossCore;
 using MoneyManager.Business.ViewModels;
 using MoneyManager.Foundation;
 using MoneyManager.Foundation.Model;
@@ -12,13 +12,14 @@ namespace MoneyManager.Business.Logic
 {
     public class AccountLogic
     {
+        //TODO: Refactor to non static
         public static void PrepareAddAccount()
         {
             AccountRepository.Selected = new Account
             {
-                Currency = ServiceLocator.Current.GetInstance<SettingDataAccess>().DefaultCurrency
+                Currency = Mvx.Resolve<SettingDataAccess>().DefaultCurrency
             };
-            ServiceLocator.Current.GetInstance<AddAccountViewModel>().IsEdit = false;
+            Mvx.Resolve<AddAccountViewModel>().IsEdit = false;
         }
 
         public static void RefreshRelatedTransactions()
@@ -118,13 +119,13 @@ namespace MoneyManager.Business.Logic
         #region Properties
 
         private static IRepository<Account> AccountRepository
-            => ServiceLocator.Current.GetInstance<IRepository<Account>>();
+            => Mvx.Resolve<IRepository<Account>>();
 
         private static IDataAccess<FinancialTransaction> TransactionData
-            => ServiceLocator.Current.GetInstance<IDataAccess<FinancialTransaction>>();
+            => Mvx.Resolve<IDataAccess<FinancialTransaction>>();
 
         private static TransactionListViewModel TransactionListView
-            => ServiceLocator.Current.GetInstance<TransactionListViewModel>();
+            => Mvx.Resolve<TransactionListViewModel>();
 
         #endregion Properties
     }

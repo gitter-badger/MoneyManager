@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
-using Microsoft.Practices.ServiceLocation;
+using Cirrious.CrossCore;
 using MoneyManager.Business.Logic;
 using MoneyManager.Foundation.Model;
 using MoneyManager.Foundation.OperationContracts;
@@ -34,7 +34,8 @@ namespace MoneyManager.Windows.Controls
                 return;
             }
 
-            var repository = ServiceLocator.Current.GetInstance<IRepository<Category>>();
+            //TODO: Move to VM
+            var repository = Mvx.Resolve<IRepository<Category>>();
             repository.Selected = category;
 
             var dialog = new CategoryDialog(true);

@@ -1,35 +1,45 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/iysmq8dfwxnd7tro?svg=true)](https://ci.appveyor.com/project/NPadrutt/moneymanager)
-
 ## Money Fox
 
-We want a budget tool which is for everyone and keeps up the motivation to track you money. To reach this goal we try to make it as easy to use as possible.
-Feel free to create issues or even better contribute code.
+[![Join the chat at https://gitter.im/AsithPerera/MoneyManager](https://badges.gitter.im/AsithPerera/MoneyManager.svg)](https://gitter.im/AsithPerera/MoneyManager?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/Apply-Solutions/MoneyManager](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Apply-Solutions/MoneyManager?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This app is currently available for Windows Phone 8.1. There are plans to port it over to Windows 10 Mobile as well as desktop.
+A way to make budgeting easy. A basic idea for the community, made even better by the community.
 
-Store link: 
-https://www.windowsphone.com/en-us/store/app/money-fox/9d806f03-d2a3-48f6-91cc-bd97d919e39c
+### Try it
+There are two versions in the Windows Marketplace available for all devices with Windows 10:
 
-## Contributing
+First there is a stable version who get regular udpates as soon as they are fully tested:
 
-Contributions are welcome and will be fully credited.
+Windows (Mobile / Desktop)
 
-To Contribute please create a pull request with your changes. All work is done in the master branch. Once we release an update we create a branch and afterwards a tag of it.
+[Stable Version](https://www.microsoft.com/store/apps/9nblggh6ck9d)
 
-### Pull Request
+Second there is a beta for all these guys who want get their hands on all the new features who are currently in development. We try to keep this as stable as possible. But nonethless expect some bugs (please report! =) ):
 
-- Please add unit tests where possible for your code and ensure the existing unit tests are all still running
+Windows (Mobile / Desktop)
 
-- Please ensure you add code documentations at least to your public methods
+[Beta Version](https://www.microsoft.com/store/apps/9nblggh68h8m)
 
-## Dependencies
+If you wanna have a look how the current development of our Android App is going, you can have a look at our Alpha. Be aware that this isn't nearly stable or feature complete.
 
-Installed SQLite Windows Runtime Extension (Available via Tools in Visual Studio)
-All other dependencies are available via nugget.
+[Android Alpha  Version](https://play.google.com/apps/testing/com.applysolutions.moneyfox)
 
-## Tools
+### Next steps
 
-I use Visual studio 2015 RC Community. To avoid Problems you should use it aswell. Also If you have Resharper please try to load the settings from this project.
+We’re in the process of improve our apps for Windows 10 Desktop and Mobile. We’re also working towards a release on Android and iOS via Xamarin.
+Head to the Issues to see all the details.
 
-## contact
-Feel free to contact me on twitter @NPadrutt or with my mail.
+### Contribution
+
+Head over [here] (https://github.com/Apply-Solutions/MoneyManager/blob/master/CONTRIBUTE.md)
+
+
+### Tools
+We use Visual Studio 2015. If you use resharper please ensure to use the settings in the repository for this project.
+
+If you don't have a Xamarin Subscription, you may apply for an open source license directly at Xamarin. [Application Formula](https://resources.xamarin.com/open-source-contributor.html)
+
+NOTE: I assume they will only offer this to contributors of an open source project.
+
+### Contact
+Feel free to contact me. Just write me a mail or join our gitter chat. 
